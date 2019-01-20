@@ -21,6 +21,19 @@ import org.springframework.context.annotation.Configuration;
  * 销毁：
  *          单实例：容器关闭的时候
  *          多实例：容器不会管理这个Bean，容器不会调用销毁方法
+ *
+ * 遍历得到所有的BeanPostProcessor，挨个执行beforeInitialization,
+ * 一旦返回null，跳出for循环，不会执行后面的BeanPostProcessor.postProcessor
+ *
+ * BeanPostProcessor原理
+ * populateBean(BeanName,mbd,instanceWrapper);给bean进行属性赋值
+ * InitializeBean
+ * {
+ *     applyBeanPostProcessor.postProcessBeforeInitialization(wrappedBean,beanName)
+ *     invokeInitMethods(beanName,wrappedBean,mbd);执行自定义初始化
+ *     applyBeanPostProcesorsAfterInitialization(wrappedBean,beanName)
+ * }
+ *
  * 1.指定初始化和销毁方法
  *      通过@Bean指定init-method,destroy-method
  * 2.通过Bean实现InitializingBean接口(定义初始化逻辑)，实现DisposableBean接口(定义销毁逻辑)
@@ -30,7 +43,10 @@ import org.springframework.context.annotation.Configuration;
  * 4.BeanPostProcessor[interface],bean的后置处理器：
  *      在bean初始化前后进行一些处理工作
  *      postProcessBeforeInitialization:在初始化之前工作
- *      postProcessAfterInitialization:在初始化之后工作
+ *      postProcessAfterInitialization:在初始化之后工作]
+ *
+ * Spring底层对BeanPostProcessor的使用：
+ *      bean赋值，注入其他组件，@Autowired，生命周期注解功能，@Async,xxx,BeanPostProcessor;
  */
 
 //扫描

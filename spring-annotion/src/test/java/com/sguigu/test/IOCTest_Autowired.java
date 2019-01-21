@@ -13,7 +13,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class IOCTest_Autowired {
     @Test
     public void test01(){
-        AnnotationConfigApplicationContext applicationContext=new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
+        AnnotationConfigApplicationContext applicationContext=
+                new AnnotationConfigApplicationContext(MainConfigOfAutowired.class);
         BookService bookService = applicationContext.getBean(BookService.class);
         System.out.println(bookService);
 

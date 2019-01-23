@@ -39,9 +39,9 @@ public class MainConfigOfProfile implements EmbeddedValueResolverAware {
     private StringValueResolver valueResolver;
     private String driverClass;
 
-    @Profile("test")
-    @Bean
-    Yellow yellow
+//    @Profile("test")
+//    @Bean
+//    Yellow yellow
 
     //多设置几个数据源
     @Profile("test")
